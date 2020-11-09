@@ -2,14 +2,15 @@
 <html>
 	<head>
 		<title>User</title>
-		<link rel="stylesheet" type="text/css" href="admin_style.css">
+		<link href= "/public/assets/admin_style.css" rel="stylesheet" type="text/css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body style="background-color:#e6f2ff;font:arial">
 
         <h3  id="E1" ><u>IMAGE SEARCH</u></h3>
         
-        
+        <h3>NOTE!!!</h3>
+        <p>Choose none for features that you don't want to consider while searching for the image. Only choose properties that you want to consider.</p>
         <form class="signup" action="/submit-search-data" method="post">
 
            
@@ -89,7 +90,7 @@
             <% var sett=[]; %>
             <% features.forEach(function(features){ %>
                 <% if(features.Setting) { %>
-                    <% expo.push(features.Setting); %>
+                    <% sett.push(features.Setting); %>
                 <% } %>
             <% }); %>
             <% var unique_sett = sett.filter((v, i, a) => a.indexOf(v) === i);  %>
@@ -107,7 +108,7 @@
             <% var type=[]; %>
             <% features.forEach(function(features){ %>
                 <% if(features.Type) { %>
-                    <% expo.push(features.Type); %>
+                    <% type.push(features.Type); %>
                 <% } %>
             <% }); %>
             <% var unique_type = type.filter((v, i, a) => a.indexOf(v) === i);  %>
@@ -118,6 +119,8 @@
                 <% }); %>
             </select>
 
+            <br>
+            <br>
 
             <input class="btn" type="submit" name="sub1" value="Submit">
 
