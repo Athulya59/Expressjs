@@ -5,6 +5,9 @@ var app = express();
 app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 
+// using app.use to serve up static CSS files in public/assets/ folder when /public link is called in ejs files
+// app.use("/route", express.static("foldername"));
+app.use('/public', express.static('public'));
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -51,7 +54,7 @@ app.post('/submit-image-data', function (req, res) {
     var type=req.body.type;
     if(type)
         myobj["Type"]=type;
-
+    
 
     const db=client.db("Images");
     const collection=db.collection("Metadata");
@@ -121,22 +124,18 @@ app.post('/submit-search-data', function (req, res) {
     if(type != "None")
         myobj["Type"]=type;
     
-    if (isEmpty(myobj))
-    {
-        res.send('pNo results to display');
-    }
-    else
-    {
+    
         const db=client.db(dbName);
         const collection=db.collection("Metadata");
         collection.find(myobj).toArray(function(err, result) {
         assert.equal(err,null);
+    
         if (result.length>0)
             res.render('result.ejs',{'res':result});
         else
-            res.send('eNo results to display');    
+            res.send('No results to display');    
 });
-    }
+    
       
     
 });
